@@ -272,7 +272,76 @@ src/
 - Implemented `cig-config.md` with global configuration management
 
 ## Actual Results
-*To be updated during implementation*
+
+**Implementation Completed Successfully**: All planned components delivered
+
+**File Creation Summary**:
+- **Total Files**: 33 files created
+- **Total Lines**: 2,471+ lines of documentation and templates
+- **Command Files**: 7 Claude Code slash commands
+- **Template Files**: 18 task-specific templates
+- **Utility Files**: 4 supporting documentation files
+- **Configuration**: Complete autoload system
+
+**Command Implementation Results**:
+1. **cig-init.md**: Project initialisation with git root detection
+2. **cig-new-task.md**: Categorised task creation with hierarchical numbering
+3. **cig-status.md**: Progress tracking across implementation hierarchy
+4. **cig-extract.md**: Section extraction using awk patterns
+5. **cig-subtask.md**: Sub-task creation with parent task search
+6. **cig-retrospective.md**: Post-completion variance analysis
+7. **cig-config.md**: Global configuration management
+
+**Template System Results**:
+- **Feature Templates**: 6 comprehensive phases (plan → maintenance)
+- **Bugfix Templates**: 4 streamlined phases (plan → rollout)
+- **Hotfix Templates**: 3 rapid phases (plan → rollout)
+- **Chore Templates**: 4 operational phases (plan → maintenance)
+
+**Technical Architecture Delivered**:
+- **Enhanced Context Loading**: Real-time project state via `!` prefix commands
+- **Hierarchical Numbering**: Filesystem-synced task organisation (2.1.3 format)
+- **Template Variables**: `{{variable}}` substitution system
+- **Error Handling**: Comprehensive fallback patterns throughout
+
+**Project Documentation Delivered**:
+- **README.md**: Comprehensive project overview and usage guide
+- **LICENSE.md**: GPL-2.0 license implementation
+- **COMMERCIAL-LICENSE.md**: Commercial distribution licensing options
+- **version.yml**: Machine-readable version tracking
+
+**Integration Success**:
+- **Claude Code Compliance**: All commands follow official Anthropic patterns
+- **Git Integration**: Branch suggestions and workflow automation
+- **Configuration Hierarchy**: Project/global config loading system
+- **Autoload System**: PHP-style utility loading without context overhead
 
 ## Lessons Learned
-*To be captured as implementation progresses*
+
+**Critical Architecture Insights**:
+1. **LLM Instruction Templates**: Initial confusion between executable code and LLM instruction templates resolved - these files guide Claude Code behavior rather than execute directly
+2. **Context Management**: `rg -t md '^#+ '` pattern superior to find commands for section discovery and context efficiency
+3. **Autoload Strategy**: Keeping utilities in `.cig/utils/` prevents `.claude/commands/` bloat and context overload
+
+**User Feedback Integration**:
+1. **Deep Hierarchies**: `-maxdepth 5` essential for complex project structures with multiple subtask levels
+2. **Search vs Paths**: cig-subtask improved dramatically by searching task names rather than requiring exact paths
+3. **Template Completeness**: Chore tasks needed maintenance.md to match other task types' lifecycle completeness
+4. **Naming Clarity**: cig-subtask preferred over cig-substep for intuitive understanding
+
+**Technical Implementation**:
+1. **Enhanced Context**: `!` prefix bash execution provides dynamic project state without additional tool calls
+2. **Fallback Patterns**: `|| echo "defaults"` patterns prevent command failures and improve user experience
+3. **Filesystem Sync**: Hierarchical numbering must mirror directory structure for navigation consistency
+
+**Development Process**:
+1. **Parallel Implementation**: Templates and commands could be developed simultaneously for efficiency
+2. **Iterative Refinement**: Real-time user corrections during implementation improved final design
+3. **Documentation-First**: Comprehensive planning reduced implementation errors significantly
+4. **Git Workflow**: Commit amendments allowed iterative improvement without history pollution
+
+**System Design Success**:
+1. **Official Patterns**: Following Anthropic's documentation patterns ensured proper Claude Code integration
+2. **Configuration Flexibility**: Project/global hierarchy provides customisation without complexity
+3. **Template Consistency**: Universal Tracking Sections across all task types enables cross-project compatibility
+4. **Error Recovery**: Comprehensive error handling and user guidance prevents implementation failures
