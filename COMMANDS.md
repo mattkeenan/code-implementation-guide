@@ -2,79 +2,60 @@
 
 ## Goal
 
-Provide comprehensive command reference for Claude Implementation Guide (CIG) system to enable efficient project documentation workflow.
+Provide comprehensive command reference for Code Implementation Guide (CIG) system to enable efficient project documentation workflow.
 
 ## Setup Command
 
 ### `/cig-init`
 **Purpose**: Initialise implementation guide system in current project
 
-**Usage**: `/cig-init`
+**Usage**:`/cig-init`
 
 **Actions**:
-- Creates `<git-root>/implementation-guides/` directory structure
-- Generates README.md with navigation index
-- Creates `.templates/` directory with template files
-- Updates CLAUDE.md with section extraction hints and standard section names
+- Creates `<git-root>/implementation-guide/` directory structure with task categories (feature/, bugfix/, hotfix/, chore/)
+- Generates `cig-project.json` Code Implementation Guide Project configuration file
+- Creates README.md with navigation index and command reference
+- Creates `.templates/` directory with category-specific template files
+- Updates CLAUDE.md with section extraction hints, standard section names, and CIG system integration
 - Provides command reference and next steps
 
 **Output**: Confirmation message with available commands and setup completion status
 
-## Core Document Creation Commands
+## Unified Task Creation Command
 
-### `/cig-plan <feature-name>`
-**Purpose**: Create new major feature planning document
+### `/cig-new-task <task-type> [task-id] <description>`
+**Purpose**: Create new categorised implementation guide with task tracking integration
 
-**Usage**: `/cig-plan auth-system`
+**Usage**:
+- `/cig-new-task feature JIRA-1234 "user authentication system"`
+- `/cig-new-task bugfix #567 "login validation error"`
+- `/cig-new-task hotfix "security vulnerability"`
 
 **Creates**:
-- Directory: `implementation-guides/N-auth-system/`
-- File: `plan.md` with Goal, Success Criteria, Major Steps, Dependencies sections
-- Template includes Original Estimate placeholder
+- Categorised directory: `implementation-guide/{task-type}/N-{description}/`
+- Task-specific template documents based on type
+- Task Reference section with tracking integration
+- Suggested git branch name for development
 
-**Example**: `/cig-plan payment-integration` creates `1-payment-integration/plan.md`
+**Output**: Implementation guide path, suggested branch name, and next steps
 
-### `/cig-requirements <feature-path>`
-**Purpose**: Create requirements specification document
+**Branch Name Suggestions**:
+- With task ID: `feature/JIRA-1234-user-authentication-system`
+- Template format: `{task-type}/{task-id}-{description-slug}`
 
-**Usage**: `/cig-requirements 1-auth-system`
+**Task Type Templates**:
 
-**Creates**: `requirements.md` with Functional Requirements, Technical Feasibility, Constraints sections
+**Feature Tasks** - Full development lifecycle:
+- `plan.md`, `requirements.md`, `design.md`, `testing.md`, `rollout.md`, `maintenance.md`
 
-### `/cig-design <feature-path>`
-**Purpose**: Create architecture and design document
+**Bugfix Tasks** - Streamlined fix workflow:
+- `plan.md`, `implementation.md`, `testing.md`, `rollout.md`
 
-**Usage**: `/cig-design 1-auth-system`
+**Hotfix Tasks** - Urgent production fixes:
+- `plan.md`, `implementation.md`, `rollout.md`
 
-**Creates**: `design.md` with Key Decisions, Constraints, Approach sections
-
-### `/cig-implementation <feature-path>`
-**Purpose**: Create concrete implementation steps document
-
-**Usage**: `/cig-implementation 1.1-user-model`
-
-**Creates**: `implementation.md` with Files to Modify, Implementation Steps, Validation sections
-
-### `/cig-testing <feature-path>`
-**Purpose**: Create test strategy and test cases document
-
-**Usage**: `/cig-testing 1-auth-system`
-
-**Creates**: `testing.md` with Test Approach, Test Cases, Success Criteria sections
-
-### `/cig-rollout <feature-path>`
-**Purpose**: Create deployment and rollout strategy document
-
-**Usage**: `/cig-rollout 1-auth-system`
-
-**Creates**: `roll-out.md` with Deployment Strategy, Prerequisites, Rollback Plan sections
-
-### `/cig-maintenance <feature-path>`
-**Purpose**: Create ongoing maintenance and support document
-
-**Usage**: `/cig-maintenance 1-auth-system`
-
-**Creates**: `maintenance.md` with Monitoring Requirements, Common Issues, Performance Considerations sections
+**Chore Tasks** - Maintenance and improvements:
+- `plan.md`, `implementation.md`, `validation.md`
 
 ## Hierarchy Management Commands
 
@@ -83,7 +64,7 @@ Provide comprehensive command reference for Claude Implementation Guide (CIG) sy
 
 **Usage**: `/cig-substep 1-auth-system user-model`
 
-**Creates**: 
+**Creates**:
 - Directory: `1-auth-system/1.1-user-model/`
 - Basic template files: `plan.md`, `requirements.md`, `implementation.md`
 
@@ -94,7 +75,7 @@ Provide comprehensive command reference for Claude Implementation Guide (CIG) sy
 ### `/cig-status [feature-path]`
 **Purpose**: Show completion status across implementation guide hierarchy
 
-**Usage**: 
+**Usage**:
 - `/cig-status` - Shows all guides
 - `/cig-status 1-auth-system` - Shows specific feature status
 
@@ -103,21 +84,24 @@ Provide comprehensive command reference for Claude Implementation Guide (CIG) sy
 ### `/cig-extract <file-path> <section-name>`
 **Purpose**: Extract specific section from implementation guide document
 
-**Usage**: `/cig-extract 1-auth-system/plan.md "Original Estimate"`
+**Usage**:`/cig-extract 1-auth-system/plan.md "Original Estimate"`
 
 **Method**: Uses `sed -n '/^## <section-name>/,/^## /p' <file> | head -n -1`
 
 **Common Sections**:
 - "Original Estimate" - Initial planning estimates
+- "Task Reference" - Task tracking integration (Task ID, URL, Parent Task, Branch)
+- "Goal" - Single sentence objective
+- "Success Criteria" - Measurable outcomes
 - "Actual Results" - Post-completion actuals
 - "Lessons Learned" - Key insights and variances
-- "Success Criteria" - Measurable outcomes
+- "Current Status" - Progress tracking
 - "Documentation" - Links to related documents and references
 
 ### `/cig-retrospective <feature-path>`
 **Purpose**: Facilitate post-completion analysis and variance tracking
 
-**Usage**: `/cig-retrospective 1-auth-system`
+**Usage**:`/cig-retrospective 1-auth-system`
 
 **Actions**:
 - Prompts for Actual Results in all feature documents
@@ -130,15 +114,12 @@ Provide comprehensive command reference for Claude Implementation Guide (CIG) sy
 ### Typical Command Progression
 
 1. **Project Setup**: `/cig-init`
-2. **Feature Planning**: `/cig-plan major-feature`
-3. **Requirements Analysis**: `/cig-requirements 1-major-feature`
-4. **Architecture Design**: `/cig-design 1-major-feature`
-5. **Break Down**: `/cig-substep 1-major-feature first-component`
-6. **Implementation**: `/cig-implementation 1.1-first-component`
-7. **Testing**: `/cig-testing 1.1-first-component`
-8. **Deployment**: `/cig-rollout 1-major-feature`
-9. **Post-Launch**: `/cig-maintenance 1-major-feature`
-10. **Analysis**: `/cig-retrospective 1-major-feature`
+2. **Task Creation**: `/cig-new-task feature JIRA-1234 "major feature"`
+3. **Break Down**: `/cig-substep feature/1-major-feature first-component`
+4. **Implementation**: Work with generated documents (plan.md → requirements.md → design.md → implementation.md)
+5. **Progress Tracking**: `/cig-status feature/1-major-feature`
+6. **Section Review**: `/cig-extract feature/1-major-feature/plan.md "Success Criteria"`
+7. **Post-Completion**: `/cig-retrospective feature/1-major-feature`
 
 ### Status Monitoring
 

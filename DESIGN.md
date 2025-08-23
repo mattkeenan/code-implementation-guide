@@ -23,24 +23,30 @@ This system provides a standardised approach to documenting software implementat
 ### Core Architecture
 
 ```
-<project>/im-guides/
-├── README.md                    # Navigation and index
-├── 1-major-feature/
-│   ├── plan.md                 # High-level planning
-│   ├── requirements.md         # Functionality and feasibility
-│   ├── design.md              # Architecture decisions
-│   ├── testing.md             # Test strategy
-│   ├── roll-out.md            # Deployment approach
-│   ├── maintenance.md         # Post-deployment concerns
-│   ├── status.md              # Progress tracking
-│   ├── 1.1-subfeature/
-│   │   ├── plan.md
-│   │   ├── requirements.md
-│   │   ├── implementation.md   # Concrete steps
-│   │   ├── testing.md
-│   │   └── roll-out.md
-│   └── 1.2-another-subfeature/
-└── 2-next-major-feature/
+<project>/implementation-guide/
+├── cig-project.json            # Code Implementation Guide Project configuration
+├── README.md                   # Navigation and index
+├── feature/
+│   ├── 1-user-authentication/
+│   │   ├── plan.md             # High-level planning
+│   │   ├── requirements.md     # Functionality and feasibility
+│   │   ├── design.md           # Architecture decisions
+│   │   ├── testing.md          # Test strategy
+│   │   ├── rollout.md          # Deployment approach
+│   │   ├── maintenance.md      # Post-deployment concerns
+│   │   ├── 1.1-user-model/
+│   │   │   ├── implementation.md
+│   │   │   └── testing.md
+│   │   └── 1.2-auth-middleware/
+│   └── 2-payment-system/
+├── bugfix/
+│   ├── 1-login-validation-error/
+│   └── 2-memory-leak-fix/
+├── hotfix/
+│   ├── 1-security-patch/
+└── chore/
+    ├── 1-dependency-update/
+    └── 2-ci-improvement/
 ```
 
 ### Information Architecture Principles
@@ -68,7 +74,7 @@ This system provides a standardised approach to documenting software implementat
 - **design.md**: Architecture decisions, interfaces, trade-offs
 - **status.md**: Current progress, blockers, next actions
 
-### Execution Documents  
+### Execution Documents
 - **implementation.md**: Concrete steps, file changes, validation
 - **testing.md**: Test strategy, cases, automation approach
 - **roll-out.md**: Deployment steps, monitoring, rollback plans
@@ -79,16 +85,17 @@ This system provides a standardised approach to documenting software implementat
 ### Universal Tracking Sections
 Available for any document:
 - `## Original Estimate` - Initial planning estimates
-- `## Actual Results` - Post-completion actuals  
-- `## Lessons Learned` - Key insights and variances
+- `## Task Reference` - Task tracking integration (Task ID, URL, Parent Task, Branch)
 - `## Goal` - Single sentence objective
 - `## Success Criteria` - Measurable outcomes
+- `## Actual Results` - Post-completion actuals
+- `## Lessons Learned` - Key insights and variances
 - `## Current Status` - Progress tracking
 
 ### Content-Specific Sections
 Use as needed per document:
 - `## Major Steps` - High-level breakdown
-- `## Dependencies` - External requirements  
+- `## Dependencies` - External requirements
 - `## Constraints` - Limitations and boundaries
 - `## Key Decisions` - Important choices and rationale
 - `## Approach` - How something will be done
@@ -116,7 +123,7 @@ Each document captures both planning and actual results:
 
 ## Claude Code Tool Integration
 
-### Optimized for Core Tools
+### Optimised for Core Tools
 - **Glob**: Find documents by type (`**/plan.md`, `**/implementation.md`)
 - **Grep**: Search within specific scopes and extract sections
 - **Read**: Navigate hierarchy naturally, load selectively
@@ -129,10 +136,10 @@ Each document captures both planning and actual results:
 ## Workflow Integration
 
 ### Project Setup
-1. Create directory structure with numbered hierarchy
-2. Generate template documents with standard sections
-3. Update project CLAUDE.md with extraction commands
-4. Initialize status tracking
+1. Initialise with `/cig-init` command
+2. Configure `cig-project.json` with task management and source control settings
+3. Create categorised directory structure (feature/, bugfix/, hotfix/, chore/)
+4. Update project CLAUDE.md with extraction commands and CIG system hints
 
 ### Development Process
 1. **Planning Phase**: Focus on plan.md, requirements.md, design.md
@@ -179,16 +186,19 @@ Each document captures both planning and actual results:
 
 ### Tool Integration
 - Sed extraction commands for precise section retrieval
-- Directory structure optimized for Glob/Grep patterns
+- Directory structure optimised for Glob/Grep patterns
 - File naming conventions support natural Claude Code navigation
 
 ## Implementation Notes
 
 ### Getting Started
-Use Claude Code commands to:
-- `/implementation-guide-setup` - Initialize structure and templates
-- `/guide-step <parent> <name>` - Add new feature/sub-feature
-- `/guide-status` - View progress across all guides
+Use Claude Code CIG commands:
+- `/cig-init` - Initialise CIG system with project configuration
+- `/cig-new-task <type> [task-id] <description>` - Create categorised implementation guides
+- `/cig-status [path]` - Show progress across task categories
+- `/cig-extract <file> <section>` - Extract specific document sections
+- `/cig-substep <path> <name>` - Add sub-implementation tasks
+- `/cig-retrospective <path>` - Post-completion analysis and variance tracking
 
 ### Best Practices
 - Don't modify original estimates after work begins

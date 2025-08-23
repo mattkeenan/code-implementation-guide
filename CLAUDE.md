@@ -10,7 +10,7 @@ This repository is currently empty and ready for initial development. The projec
 
 Commands will be added here once the project structure is established:
 - Build: TBD
-- Test: TBD  
+- Test: TBD
 - Lint: TBD
 
 ## Architecture Overview
