@@ -93,6 +93,7 @@ Use as needed per document:
 - `## Key Decisions` - Important choices and rationale
 - `## Approach` - How something will be done
 - `## Validation` - How to verify success
+- `## Documentation` - Links to related documents and references
 
 ### Section Extraction Commands
 
