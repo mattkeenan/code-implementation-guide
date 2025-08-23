@@ -1,12 +1,24 @@
 # Implementation Guide System Design
 
+## Original Estimate
+- Timeline: 2 hours design + 1 hour documentation
+- Resources: 1 person (analysis and design)
+- Complexity: Medium (novel system design)
+
 ## Goal
 
-Create a context-efficient hierarchical documentation system for Claude Code that maximizes signal-to-noise ratio while enabling precise information extraction and change management tracking.
+Create a context-efficient hierarchical documentation system for Claude Code that maximises signal-to-noise ratio while enabling precise information extraction and change management tracking.
+
+## Success Criteria
+- [ ] Claude Code can extract specific sections using sed commands
+- [ ] Document structure scales without context explosion
+- [ ] Change management tracking captures estimate variance
+- [ ] System works with Claude Code's natural tool patterns
+- [ ] Templates reduce setup overhead for new projects
 
 ## System Overview
 
-This system provides a standardized approach to documenting software implementation projects that works optimally with Claude Code's tool preferences and context limitations.
+This system provides a standardised approach to documenting software implementation projects that works optimally with Claude Code's tool preferences and context limitations.
 
 ### Core Architecture
 
@@ -46,7 +58,7 @@ This system provides a standardized approach to documenting software implementat
 #### Context Efficiency
 - Predictable section structure enables precise extraction
 - Standard naming conventions reduce cognitive overhead
-- Focused scope per document minimizes information overload
+- Focused scope per document minimises information overload
 
 ## Document Types and Purpose
 
@@ -136,21 +148,38 @@ Each document captures both planning and actual results:
 
 ### For Claude Code
 - Predictable structure reduces context switching
-- Tool-optimized organization works with natural usage patterns
-- Precise information extraction minimizes noise
+- Tool-optimised organisation works with natural usage patterns
+- Precise information extraction minimises noise
 - Scalable to large projects without context explosion
 
 ### For Development Teams
 - Clear project structure and progress visibility
 - Historical variance data improves future estimation
-- Standardized approach reduces cognitive overhead
+- Standardised approach reduces cognitive overhead
 - Human-readable documentation supports collaboration
 
 ### For Project Management
 - Granular tracking of estimates vs actuals
 - Clear audit trail of decisions and changes
 - Structured retrospectives enable process improvement
-- Hierarchical organization supports reporting at multiple levels
+- Hierarchical organisation supports reporting at multiple levels
+
+## Key Decisions
+
+### Document Structure
+- Hierarchical numbering (1-feature/1.1-subfeature) for clear scope encoding
+- Single responsibility per file to minimise context switching
+- Predictable section names for reliable extraction
+
+### Section Standardisation
+- Human-readable names with uppercase first letter for grep compatibility
+- Universal tracking sections (Original Estimate, Actual Results, Lessons Learned)
+- Content-specific sections used only when they add value
+
+### Tool Integration
+- Sed extraction commands for precise section retrieval
+- Directory structure optimized for Glob/Grep patterns
+- File naming conventions support natural Claude Code navigation
 
 ## Implementation Notes
 
@@ -166,3 +195,9 @@ Use Claude Code commands to:
 - Use only sections that add value to each document
 - Maintain clear hierarchy numbering as project evolves
 - Update CLAUDE.md with project-specific section extraction patterns
+
+## Actual Results
+[To be filled after implementation]
+
+## Lessons Learned
+[To be filled after implementation and usage]
