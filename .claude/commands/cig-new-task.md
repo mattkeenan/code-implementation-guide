@@ -1,14 +1,14 @@
 ---
 description: Create categorised implementation guide
 argument-hint: <task-type> [task-id] <description>
-allowed-tools: Write, Read, LS, Bash(git:*), Bash(rg:*), Bash(cat:*), Bash(find:*)
+allowed-tools: Write, Read, LS, Bash(git:*), Bash(cat:*), Bash(egrep:*), Bash(echo:*), Bash(find:*)
 ---
 
 ## Context
-- Autoload config: !`cat .cig/autoload.yaml || echo "No autoload config found"`
-- Project config: !`cat implementation-guide/cig-project.json || echo "Run /cig-init first"`
-- Existing tasks: !`rg -t md '^#+ ' implementation-guide/ | cat || echo "No existing tasks"`
-- Directory numbering: !`find implementation-guide -maxdepth 5 -type d -name '[0-9]*' | cat || echo "Starting at 1"`
+- Autoload config: !`cat .cig/autoload.yaml 2>/dev/null || echo "No autoload config found"`
+- Project config: !`cat implementation-guide/cig-project.json 2>/dev/null || echo "Run /cig-init first"`
+- Existing tasks: !`egrep -rn '^#+ ' implementation-guide/ --include="*.md" 2>/dev/null || echo "No existing tasks"`
+- Directory numbering: !`find implementation-guide -maxdepth 5 -type d -name '[0-9]*' 2>/dev/null || echo "Starting at 1"`
 
 ## Your task
 Create new implementation guide for: **$ARGUMENTS**

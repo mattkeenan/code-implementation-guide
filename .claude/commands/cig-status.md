@@ -1,13 +1,13 @@
 ---
 description: Show progress across implementation guide hierarchy
 argument-hint: [path]
-allowed-tools: Read, LS, Bash(rg:*), Bash(cat:*), Bash(find:*)
+allowed-tools: Read, LS, Bash(egrep:*), Bash(echo:*), Bash(find:*)
 ---
 
 ## Context
-- Full implementation structure: !`rg -t md '^#+ ' implementation-guide/ | cat || echo "No implementation guides found"`
-- Current status sections: !`rg -t md '^## Current Status' implementation-guide/ -A 3 | cat || echo "No status sections found"`
-- Directory hierarchy: !`find implementation-guide -maxdepth 5 -type d -name '[0-9]*' | cat || echo "No numbered directories found"`
+- Full implementation structure: !`egrep -rn '^#+ ' implementation-guide/ --include="*.md" 2>/dev/null || echo "No implementation guides found"`
+- Current status sections: !`egrep -rn '^## Current Status' implementation-guide/ --include="*.md" -A 3 2>/dev/null || echo "No status sections found"`
+- Directory hierarchy: !`find implementation-guide -maxdepth 5 -type d -name '[0-9]*' 2>/dev/null || echo "No numbered directories found"`
 
 ## Your task
 Analyse completion status for: **$ARGUMENTS** (or all tasks if no path specified)

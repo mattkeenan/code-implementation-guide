@@ -1,13 +1,13 @@
 ---
 description: Facilitate post-completion analysis and variance tracking
 argument-hint: <task-path>
-allowed-tools: Read, Write, Bash(rg:*), Bash(cat:*), Bash(find:*)
+allowed-tools: Read, Write, Bash(egrep:*), Bash(echo:*), Bash(find:*)
 ---
 
 ## Context
-- Task sections: !`rg -t md '^## (Original Estimate|Actual Results|Lessons Learned)' implementation-guide/ | cat || echo "No estimate/results sections found"`
-- Completion status: !`rg -t md '^## Current Status' implementation-guide/ -A 2 | cat || echo "No status sections found"`
-- Available tasks: !`find implementation-guide -maxdepth 5 -type d -name '[0-9]*' | cat || echo "No tasks found"`
+- Task sections: !`egrep -rn '^## (Original Estimate|Actual Results|Lessons Learned)' implementation-guide/ --include="*.md" 2>/dev/null || echo "No estimate/results sections found"`
+- Completion status: !`egrep -rn '^## Current Status' implementation-guide/ --include="*.md" -A 2 2>/dev/null || echo "No status sections found"`
+- Available tasks: !`find implementation-guide -maxdepth 5 -type d -name '[0-9]*' 2>/dev/null || echo "No tasks found"`
 
 ## Your task
 Generate retrospective analysis for: **$ARGUMENTS**

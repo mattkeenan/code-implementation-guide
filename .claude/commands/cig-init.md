@@ -1,6 +1,6 @@
 ---
 description: Initialise CIG system with project configuration
-allowed-tools: Write, Read, Bash(git:*), LS
+allowed-tools: Write, Read, LS, Bash(git:*), Bash(pwd:*), Bash(ls:*), Bash(echo:*)
 ---
 
 ## Context

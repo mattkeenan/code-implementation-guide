@@ -1,7 +1,7 @@
 ---
 description: Configure CIG system paths and settings
 argument-hint: [init|list|reset]
-allowed-tools: Write, Read, LS, Bash(git:*), Bash(cat:*)
+allowed-tools: Write, Read, LS, Bash(git:*), Bash(cat:*), Bash(ls:*), Bash(echo:*)
 ---
 
 ## Context

@@ -1,13 +1,13 @@
 ---
 description: Create sub-implementation task within existing task
 argument-hint: <parent-task-name> <subtask-name>
-allowed-tools: Write, Read, LS, Bash(rg:*), Bash(cat:*), Bash(find:*)
+allowed-tools: Write, Read, LS, Bash(egrep:*), Bash(echo:*), Bash(find:*)
 ---
 
 ## Context
-- Current task hierarchy: !`rg -t md '^#+ ' implementation-guide/ | cat || echo "No existing tasks"`
-- Parent task structure: !`find implementation-guide -maxdepth 5 -type d -name '[0-9]*' | cat || echo "No numbered directories"`
-- Existing subtasks: !`find implementation-guide -mindepth 3 -maxdepth 5 -type d -name '[0-9]*' | cat || echo "No existing subtasks"`
+- Current task hierarchy: !`egrep -rn '^#+ ' implementation-guide/ --include="*.md" 2>/dev/null || echo "No existing tasks"`
+- Parent task structure: !`find implementation-guide -maxdepth 5 -type d -name '[0-9]*' 2>/dev/null || echo "No numbered directories"`
+- Existing subtasks: !`find implementation-guide -mindepth 3 -maxdepth 5 -type d -name '[0-9]*' 2>/dev/null || echo "No existing subtasks"`
 
 ## Your task
 Create subtask "**$ARGUMENTS**" with hierarchical numbering (2.1.3 format)
