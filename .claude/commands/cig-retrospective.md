@@ -1,13 +1,13 @@
 ---
 description: Facilitate post-completion analysis and variance tracking
 argument-hint: <task-path>
-allowed-tools: Read, Write, Bash(egrep:*), Bash(echo:*), Bash(find:*)
+allowed-tools: Read, Write, Bash(.cig/scripts/command-helpers/cig-load-status-sections), Bash(.cig/scripts/command-helpers/cig-find-task-numbering-structure), Bash(egrep:*), Bash(echo:*), Bash(find:*)
 ---
 
 ## Context
 - Task sections: !`egrep -rn '^## (Original Estimate|Actual Results|Lessons Learned)' implementation-guide/ --include="*.md" 2>/dev/null || echo "No estimate/results sections found"`
-- Completion status: !`egrep -rn '^## Current Status' implementation-guide/ --include="*.md" -A 2 2>/dev/null || echo "No status sections found"`
-- Available tasks: !`find implementation-guide -maxdepth 5 -type d -name '[0-9]*' 2>/dev/null || echo "No tasks found"`
+- Completion status: !`.cig/scripts/command-helpers/cig-load-status-sections`
+- Available tasks: !`.cig/scripts/command-helpers/cig-find-task-numbering-structure`
 
 ## Your task
 Generate retrospective analysis for: **$ARGUMENTS**

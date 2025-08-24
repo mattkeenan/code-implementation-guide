@@ -1,13 +1,13 @@
 ---
 description: Configure CIG system paths and settings
 argument-hint: [init|list|reset]
-allowed-tools: Write, Read, LS, Bash(git:*), Bash(cat:*), Bash(ls:*), Bash(echo:*)
+allowed-tools: Write, Read, LS, Bash(git:*), Bash(.cig/scripts/command-helpers/cig-load-autoload-config), Bash(ls:*), Bash(echo:*)
 ---
 
 ## Context
 - Git root: !`git rev-parse --show-toplevel`
 - Existing configs: !`ls -la ~/.cig/ .cig/ 2>/dev/null || echo "No configs found"`
-- Current autoload: !`cat .cig/autoload.yaml || cat ~/.cig/autoload.yaml || echo "Using defaults"`
+- Current autoload: !`.cig/scripts/command-helpers/cig-load-autoload-config`
 
 ## Your task
 Configure CIG system: **$ARGUMENTS**

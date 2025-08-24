@@ -1,11 +1,11 @@
 ---
 description: Extract specific section from implementation guide
 argument-hint: <file-path> <section-name>
-allowed-tools: Read, Bash(awk:*), Bash(egrep:*), Bash(echo:*)
+allowed-tools: Read, Bash(.cig/scripts/command-helpers/cig-load-existing-tasks), Bash(awk:*), Bash(egrep:*), Bash(echo:*)
 ---
 
 ## Context
-- Available sections: !`egrep -rn '^#+ ' implementation-guide/ --include="*.md" 2>/dev/null || echo "No implementation guides found"`
+- Available sections: !`.cig/scripts/command-helpers/cig-load-existing-tasks`
 - Section contents: awk '/^{section level and text}/{p=1; print; next} p && /^## [^#]/{p=0} p' {filename}
 - Example: awk '/^## Goal/{p=1; print; next} p && /^## [^#]/{p=0} p' implementation-guide/feature/1-task/plan.md
 

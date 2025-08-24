@@ -26,6 +26,14 @@ This system provides a standardised approach to documenting software implementat
 <project>/implementation-guide/
 ├── cig-project.json            # Code Implementation Guide Project configuration
 ├── README.md                   # Navigation and index
+├── .cig/
+│   └── scripts/
+│       └── command-helpers/    # Helper scripts for compound operations
+│           ├── cig-load-autoload-config
+│           ├── cig-load-project-config
+│           ├── cig-load-existing-tasks
+│           ├── cig-find-task-numbering-structure
+│           └── cig-load-status-sections
 ├── feature/
 │   ├── 1-user-authentication/
 │   │   ├── plan.md             # High-level planning
@@ -133,6 +141,104 @@ Each document captures both planning and actual results:
 - Extract specific sections rather than full documents
 - Hierarchical structure enables focused work without information overload
 
+## Script-Based Command Architecture
+
+### Helper Scripts System
+To resolve Claude Code permission restrictions with compound bash operations, CIG commands utilise encapsulated helper scripts:
+
+#### Script Design Principles
+- **Self-Documenting Names**: Script names explicitly describe their function for LLM clarity
+- **POSIX Compliance**: Cross-platform compatibility using standard shell features
+- **Security Model**: Scripts set to 0500 permissions (read/execute only)
+- **Canonical Source**: Remote repository serves as authoritative source for integrity verification
+
+#### Helper Script Functions
+```
+.cig/scripts/command-helpers/
+├── cig-load-autoload-config         # Loads .cig/autoload.yaml or provides fallback
+├── cig-load-project-config          # Loads implementation-guide/cig-project.json
+├── cig-load-existing-tasks          # Discovers all task headers across implementation guide
+├── cig-find-task-numbering-structure # Finds numbered directories for task sequencing
+└── cig-load-status-sections         # Extracts "Current Status" sections from tasks
+```
+
+#### Permission Model
+- **Single Pattern**: `Bash(.cig/scripts/*)` allows all helper script execution
+- **No Compound Operations**: Eliminates permission prompts for complex bash operations
+- **Encapsulated Logic**: Complex operations isolated within individual scripts
+
+### Task Tracking Integration
+
+#### Multi-Platform Support
+The system supports multiple task tracking platforms with fallback mechanisms:
+
+**GitHub Issues Integration**:
+```json
+"task-tracking": {
+  "system": "github-issues",
+  "base-url": "https://github.com/owner/repo/issues",
+  "id-format": "issues-{{number}}",
+  "branch-naming": "feature/issues-{{number}}-{{description-slug}}"
+}
+```
+
+**GitLab Issues Integration**:
+```json
+"task-tracking": {
+  "system": "gitlab-issues", 
+  "base-url": "https://gitlab.com/owner/repo/-/issues",
+  "id-format": "issues-{{number}}",
+  "branch-naming": "feature/issues-{{number}}-{{description-slug}}"
+}
+```
+
+**JIRA Integration**:
+```json
+"task-tracking": {
+  "system": "jira",
+  "base-url": "https://company.atlassian.net/browse",
+  "id-format": "{{project-key}}-{{number}}",
+  "branch-naming": "feature/{{project-key}}-{{number}}-{{description-slug}}"
+}
+```
+
+**Internal Numbering Fallback**:
+```json
+"fallback": {
+  "description": "For tasks without external issue tracking",
+  "id-format": "internal-{{number}}",
+  "migration-notes": "Replace internal-N with external ID when issue created"
+}
+```
+
+### Security and Integrity
+
+#### File Integrity Verification
+- **Canonical Source**: Remote Git repository as authoritative reference
+- **Hash Verification**: SHA256 checksums against remote repository
+- **Version Tracking**: Script frontmatter contains version and source information
+- **Security Command**: `/cig-security-check` verifies system integrity
+
+#### Script Frontmatter Format
+```bash
+#!/bin/sh
+# Script: {script-name}
+# Version: {git-tag}-{git-commit-id}
+# Source: {canonical-repo-url}
+# Purpose: {clear description of function}
+# Replaces: {original compound operation}
+```
+
+**Git-Based Versioning**: Scripts use `git describe --tags --always` format (e.g., `v0.1.1-5-gcea1c19`) which provides:
+- **Security Anchor**: Version reflects exact git state when file was last modified
+- **Tamper Detection**: Any modification requires updating the git reference
+- **Integrity Verification**: `/cig-security-check` can verify files against their specific commit
+
+#### Remote Verification Methods
+- **GitHub API**: `curl -H "Accept: application/vnd.github.v3+json" "https://api.github.com/repos/{owner}/{repo}/contents/{path}?ref={ref}"`
+- **Local Git**: `git ls-tree {ref} -- {path}` for local repository verification
+- **Fallback**: Local verification when remote access unavailable
+
 ## Workflow Integration
 
 ### Project Setup
@@ -199,6 +305,7 @@ Use Claude Code CIG commands:
 - `/cig-extract <file> <section>` - Extract specific document sections
 - `/cig-substep <path> <name>` - Add sub-implementation tasks
 - `/cig-retrospective <path>` - Post-completion analysis and variance tracking
+- `/cig-security-check [verify|report]` - Verify file integrity and sources for CIG system
 
 ### Best Practices
 - Don't modify original estimates after work begins

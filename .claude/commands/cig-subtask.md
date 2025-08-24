@@ -1,12 +1,12 @@
 ---
 description: Create sub-implementation task within existing task
 argument-hint: <parent-task-name> <subtask-name>
-allowed-tools: Write, Read, LS, Bash(egrep:*), Bash(echo:*), Bash(find:*)
+allowed-tools: Write, Read, LS, Bash(.cig/scripts/command-helpers/cig-load-existing-tasks), Bash(.cig/scripts/command-helpers/cig-find-task-numbering-structure), Bash(egrep:*), Bash(echo:*), Bash(find:*)
 ---
 
 ## Context
-- Current task hierarchy: !`egrep -rn '^#+ ' implementation-guide/ --include="*.md" 2>/dev/null || echo "No existing tasks"`
-- Parent task structure: !`find implementation-guide -maxdepth 5 -type d -name '[0-9]*' 2>/dev/null || echo "No numbered directories"`
+- Current task hierarchy: !`.cig/scripts/command-helpers/cig-load-existing-tasks`
+- Parent task structure: !`.cig/scripts/command-helpers/cig-find-task-numbering-structure`
 - Existing subtasks: !`find implementation-guide -mindepth 3 -maxdepth 5 -type d -name '[0-9]*' 2>/dev/null || echo "No existing subtasks"`
 
 ## Your task
