@@ -109,6 +109,22 @@ Provide comprehensive command reference for Code Implementation Guide (CIG) syst
 - Facilitates Lessons Learned documentation
 - Updates status.md with completion markers
 
+### `/cig-security-check [verify|report]`
+**Purpose**: Verify file integrity and sources for CIG system
+
+**Usage**:`/cig-security-check verify`
+
+**Actions**:
+- Validates helper script integrity against canonical repository
+- Checks script frontmatter for version and source information
+- Calculates SHA256 checksums and compares with remote sources
+- Generates security verification report
+- Supports GitHub API, GitLab API, and local git verification methods
+
+**Parameters**:
+- `verify`: Perform full integrity verification against canonical source
+- `report`: Generate summary report of current file status
+
 ## Workflow Integration
 
 ### Typical Command Progression

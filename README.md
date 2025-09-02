@@ -8,6 +8,20 @@ The Code Implementation Guide (CIG) provides a standardised approach to planning
 
 While this system is designed specifically for Claude Code, the methodology isn't strictly tied to any particular tool. Pull requests to support other development environments are welcome.
 
+## Project Status
+
+**⚠️ Beta Development**: This is a new project under active development. While being used for actual development work, it should be considered a beta process. Use with appropriate caution.
+
+**Development Status**: Core functionality is implemented and operational, but the system is still evolving based on real-world usage and feedback.
+
+### Contributing
+
+We welcome issues, pull requests, and suggestions! This project aims to become a community-driven tool.
+
+**Copyright Assignment Preference**: Contributors are strongly encouraged to assign copyright to enable potential future cooperative or community benefit corporation structure where contributors could share in any revenue (though no firm plans exist yet).
+
+**Current Priority**: Establishing robust, secure foundations before expanding features.
+
 ## Features
 
 - **Task Management**: Structured approach to feature, bugfix, hotfix, and chore tasks
@@ -44,6 +58,7 @@ While this system is designed specifically for Claude Code, the methodology isn'
 - `/cig-extract <file-path> <section-name>` - Extract specific section from implementation guide
 - `/cig-retrospective <task-path>` - Facilitate post-completion analysis
 - `/cig-config [init|list|reset]` - Configure CIG system paths and settings
+- `/cig-security-check [verify|report]` - Verify file integrity and sources for CIG system
 
 ## Task Types
 
@@ -79,6 +94,13 @@ implementation-guide/
 
 .cig/
 ├── autoload.yaml
+├── scripts/
+│   └── command-helpers/    # Helper scripts for compound operations
+│       ├── cig-load-autoload-config
+│       ├── cig-load-project-config  
+│       ├── cig-load-existing-tasks
+│       ├── cig-find-task-numbering-structure
+│       └── cig-load-status-sections
 ├── utils/
 │   ├── config-loader.md
 │   ├── template-engine.md
@@ -98,7 +120,7 @@ The system uses hierarchical configuration:
 2. **Project**: `.cig/autoload.yaml` 
 3. **Implementation Guide**: `implementation-guide/cig-project.json`
 
-Example `cig-project.json`:
+Example `cig-project.json` (template available at `.cig/templates/cig-project.json.template`):
 ```json
 {
   "name": "My Project",
@@ -125,8 +147,13 @@ Directory structure mirrors numbering exactly.
 
 ## Version Information
 
-- **CIG Project Schema**: v1.0.0
-- **Git Version**: v0.1.1
+**Git-Based Versioning**: This project uses `git describe --tags --always` format for version tracking (e.g., `v0.1.1-5-gcea1c19`):
+- Base version from most recent git tag
+- Number of commits since tag
+- Current commit hash
+
+**Current Version**: Run `git describe --tags --always` in repository for current version
+**CIG Project Schema**: Matches git version for consistency
 
 ## Contributing
 

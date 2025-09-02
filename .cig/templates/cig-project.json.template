@@ -1,7 +1,9 @@
 {
   "title": "Code Implementation Guide Project Configuration",
-  "version": "1.0.0",
-  "cig-version": "0.1.0",
+  "version": "v0.1.1-5-gcea1c19",
+  "_version-note": "Use git describe --tags --always format for version tracking",
+  "cig-version": "v0.1.1-5-gcea1c19", 
+  "_cig-version-note": "Should match your project version for consistency",
   "project": {
     "name": "Example Project",
     "description": "Project configuration template for CIG system"

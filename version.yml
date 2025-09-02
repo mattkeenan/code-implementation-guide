@@ -1,8 +1,10 @@
 # CIG Version Information
 # Machine-readable version data for the Code Implementation Guide system
 
-# Current version of the cig-project.json schema and CIG system
-cig-project: "v1.0.0"
+# Git-based versioning - use `git describe --tags --always` for current version
+# Format: {tag}-{commits-since-tag}-g{commit-hash}
+# Example: v0.1.1-5-gcea1c19
+git-based-versioning: true
 
-# Git version - should remain in sync with git tags
-git: "v0.1.2"
+# CIG project schema matches git version for consistency
+schema-version: "matches-git"
