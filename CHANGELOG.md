@@ -2,6 +2,87 @@
 
 All notable changes to the Code Implementation Guide (CIG) project are documented in this file, organized by task.
 
+## Task 4: Migration Tools to Migrate v1.0 to v2.0
+
+**Status**: Complete
+**Impact**: Enables safe migration of existing v1.0 tasks to v2.0 hierarchical structure with rollback capability
+
+### Migration Scripts
+
+Automated migration tooling discovered issues with hardcoded status values and disconnected configuration. Extended implementation to include configuration-driven status validation system.
+
+**Three Migration Scripts**:
+1. `migrate-v1-to-v2.sh` - Migrate v1.0 tasks to v2.0 with git-first backup strategy
+2. `validate-migration.sh` - Validate migration integrity (Template Version, structure, content)
+3. `rollback-migration.sh` - Rollback migration using git tags or manual backup
+
+**Migration Features**:
+- Git-first backup strategy using tags (instant rollback with `git reset --hard`)
+- Directory structure migration: `{type}/{num}-{desc}` → `{num}-{type}-{desc}`
+- Workflow file renaming: `plan.md` → `a-plan.md`, `requirements.md` → `b-requirements.md`, etc.
+- Template Version tagging (adds `Template Version: 2.0` field)
+- Content integrity validation with SHA256 hash comparison
+- Idempotent operation (safe to run multiple times)
+- Dry-run mode for preview
+
+### Configuration-Driven Status System
+
+During rollout discovered that status values were hardcoded and disconnected from configuration, with no LLM guidance on valid values. Enhanced to make status system self-documenting and configuration-driven.
+
+**Status System Features**:
+- Status values defined in `cig-project.json` as object (status name → percentage)
+- `status-aggregator.sh` loads from config with fallback to defaults
+- Unknown status warnings to stderr (non-breaking, shows: actual, mapped, effective values)
+- LLM guidance in workflow commands referencing central documentation
+- Self-documenting via configuration file
+
+**Status Values**:
+- Backlog (0%) - Task not started
+- To-Do (0%) - Task ready to begin
+- In Progress (25%) - Work actively underway
+- Implemented (50%) - Code complete, not tested
+- Testing (75%) - Testing in progress
+- Finished (100%) - Fully complete
+
+**Design Principles**:
+- Progressive disclosure: Commands reference `.cig/docs/workflow/workflow-steps.md#status-values`
+- Non-breaking warnings: Unknown statuses default to 0% with stderr warning
+- Backward compatible: Fallback to hardcoded defaults if config missing/invalid
+- Configuration format enables project customization of workflow stages
+
+### Documentation Updates
+
+**Migration Documentation**:
+- Created comprehensive migration guide (`.cig/docs/migration.md`) covering why/how/safety
+- Migration guide explains v1.0 limitations vs v2.0 benefits
+- Six-step migration process with rollback procedures
+- Prerequisites, safety features, and troubleshooting documented
+
+**Workflow Documentation**:
+- Status values section added to workflow-steps.md
+- jq command examples for querying valid statuses
+- All 8 workflow commands include status field guidance
+
+### Testing Results
+
+Comprehensive testing validated all aspects of migration and status systems:
+- 24/24 migration test cases passed (3 skipped: rollback, manual backup, edge cases)
+- Status loading from config: PASSED
+- Unknown status warnings: PASSED
+- Fallback with missing config: PASSED (bug fixed during testing)
+- Template validation: PASSED
+- Workflow command instructions: PASSED (8/8 verified)
+
+### System Status
+
+- Migration tools fully operational and tested
+- Status system self-documenting via configuration
+- Safe migration path from v1.0 to v2.0 with rollback capability
+- Git-first backup strategy provides instant rollback
+- Configuration-driven validation reduces LLM confusion
+
+---
+
 ## Task 3: Hierarchical Workflow System with Dynamic Step Transitions
 
 **Status**: Complete

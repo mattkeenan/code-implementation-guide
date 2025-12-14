@@ -1,7 +1,7 @@
 ---
 description: Guide user through planning phase
 argument-hint: <task-path>
-allowed-tools: Read, Write, Edit, Bash(.cig/scripts/command-helpers/hierarchy-resolver.sh), Bash(.cig/scripts/command-helpers/context-inheritance.pl), Bash(.cig/scripts/command-helpers/format-detector.sh), Bash(egrep:*), Bash(echo:*), Bash(find:*)
+allowed-tools: Read, Write, Edit, Bash(.cig/scripts/command-helpers/hierarchy-resolver.sh:*), Bash(.cig/scripts/command-helpers/context-inheritance.pl:*), Bash(.cig/scripts/command-helpers/format-detector.sh:*), Bash(egrep:*), Bash(echo:*), Bash(find:*)
 ---
 
 ## Context
@@ -57,6 +57,8 @@ Key questions to address:
 - What are the top 3-5 risks and mitigation strategies?
 - What dependencies exist (external, team, technical)?
 - What constraints limit the approach?
+
+**Status Field**: Use valid status values only. See `.cig/docs/workflow/workflow-steps.md#status-values`.
 
 ### Step 7: Check Universal Decomposition Signals
 Review these 5 signals to determine if this task should be broken into subtasks:

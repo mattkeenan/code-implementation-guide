@@ -86,13 +86,9 @@ Execute structured 8-step workflow for any task:
 
 ### Migration from v1.0
 
-**Breaking Changes**:
-- `/cig-new-task`: Signature changed from `<type> [task-id] <description>` to `<num> <type> "description"`
-- `/cig-subtask`: Signature changed to include task numbers and type
-- `/cig-extract`: Now accepts task-path instead of file-path (backward compatible)
+**Breaking Changes**: `/cig-new-task`, `/cig-subtask`, and `/cig-extract` have new signatures (see [Migration Guide](.cig/docs/migration.md#what-gets-changed)).
 
-Old v1.0 tasks continue to work. New v2.0 tasks use hierarchical structure with 8 workflow files (a-h).
-See `.cig/docs/workflow/` for complete workflow documentation.
+**Migrating v1.0 Tasks**: Existing v1.0 tasks continue to work without migration. Migration to v2.0 hierarchical structure is **optional** but enables task decomposition and context inheritance. See [Migration Guide](.cig/docs/migration.md) for rationale, process, and safety features.
 
 ## Task Types
 
@@ -198,9 +194,9 @@ Directory structure mirrors numbering exactly.
 
 ## License
 
-This project is licensed under the GNU General Public License v2.0 (GPL-2.0). See [LICENSE.md](LICENSE.md) for the full license text.
+This project is licensed under the GNU Affero General Public License v3.0 (AGPL-3.0). See [LICENSE.md](LICENSE.md) for the full license text.
 
-Commercial distribution licenses are available for organisations that wish to distribute this software without being bound by the GPL-2.0 terms. See [COMMERCIAL-LICENSE.md](COMMERCIAL-LICENSE.md) for details on enquiries.
+Commercial distribution licenses are available for organisations that wish to distribute this software without being bound by the AGPL-3.0 terms. See [COMMERCIAL-LICENSE.md](COMMERCIAL-LICENSE.md) for details on enquiries.
 
 ## Trademark Notice
 

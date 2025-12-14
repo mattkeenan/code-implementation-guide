@@ -1,7 +1,7 @@
 {
   "project-name": "Code Implementation Guide (CIG)",
   "description": "Structured task management system for software development using Claude Code integration",
-  "version": "v0.1.1-5-gcea1c19",
+  "version": "v0.2.1",
   "supported-task-types": [
     "feature",
     "bugfix", 
@@ -54,15 +54,17 @@
   "workflow": {
     "required-sections": [
       "Task Reference",
-      "Goal", 
+      "Goal",
       "Current Status"
     ],
-    "status-values": [
-      "Not Started",
-      "In Progress", 
-      "Blocked",
-      "Completed"
-    ]
+    "status-values": {
+      "Backlog": 0,
+      "To-Do": 0,
+      "In Progress": 25,
+      "Implemented": 50,
+      "Testing": 75,
+      "Finished": 100
+    }
   },
   "integration": {
     "claude-code": {
@@ -73,7 +75,7 @@
     }
   },
   "security": {
-    "version-tracking": "v0.1.1-5-gcea1c19",
+    "version-tracking": "v0.2.1",
     "canonical-source": {
       "type": "github",
       "repository": "OWNER/REPO",

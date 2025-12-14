@@ -2,6 +2,39 @@
 
 Detailed guidance for each of the 8 workflow steps. Each step includes purpose, focus/avoid guidelines, key questions, typical structure, and transition triggers.
 
+## Status Values
+
+When updating the **Status** field in workflow files, use ONLY valid status values from `cig-project.json`.
+
+### Query Valid Statuses
+
+List all valid status values:
+```bash
+jq -r '.workflow["status-values"] | to_entries[] | "\(.key): \(.value)%"' \
+  implementation-guide/cig-project.json
+```
+
+Get percentage for specific status:
+```bash
+jq -r '.workflow["status-values"]["In Progress"]' \
+  implementation-guide/cig-project.json
+```
+
+### Valid Status Values
+
+The following status values are defined in the project configuration:
+
+- **Backlog** (0%): Task not started, queued for future work
+- **To-Do** (0%): Task ready to begin, prioritized
+- **In Progress** (25%): Work actively underway
+- **Implemented** (50%): Code complete, not yet tested
+- **Testing** (75%): Testing in progress, validation ongoing
+- **Finished** (100%): Fully complete, all criteria met
+
+**IMPORTANT**: Do not use arbitrary status values. Always select from this list. If you encounter an unknown status value, the system will warn you and default to 0% completion.
+
+---
+
 ## Planning
 
 **Purpose**: Establish clear objectives, success criteria, and high-level approach before diving into details.

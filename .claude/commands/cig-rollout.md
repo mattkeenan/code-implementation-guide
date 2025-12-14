@@ -1,7 +1,7 @@
 ---
 description: Guide user through rollout phase
 argument-hint: <task-path>
-allowed-tools: Read, Write, Edit, Bash(.cig/scripts/command-helpers/hierarchy-resolver.sh), Bash(.cig/scripts/command-helpers/context-inheritance.pl), Bash(.cig/scripts/command-helpers/format-detector.sh), Bash(egrep:*), Bash(echo:*), Bash(find:*)
+allowed-tools: Read, Write, Edit, Bash(.cig/scripts/command-helpers/hierarchy-resolver.sh:*), Bash(.cig/scripts/command-helpers/context-inheritance.pl:*), Bash(.cig/scripts/command-helpers/format-detector.sh:*), Bash(egrep:*), Bash(echo:*), Bash(find:*)
 ---
 
 ## Context
@@ -39,6 +39,8 @@ Follow the 8-step workflow structure:
    - What metrics will be monitored during rollout?
    - What are the rollback triggers and procedures?
    - What are the success criteria for each rollout phase?
+
+   **Status Field**: Use valid status values only. See `.cig/docs/workflow/workflow-steps.md#status-values`.
 
 7. **Check Decomposition Signals**: Review 5 universal signals
 8. **Suggest Next Steps**:

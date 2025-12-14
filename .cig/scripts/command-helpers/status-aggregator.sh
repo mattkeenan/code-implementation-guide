@@ -16,21 +16,64 @@
 
 set -euo pipefail
 
-# Status to percentage mapping
-declare -A STATUS_MAP=(
-    ["Backlog"]="0"
-    ["backlog"]="0"
-    ["To-Do"]="0"
-    ["to-do"]="0"
-    ["In Progress"]="25"
-    ["in progress"]="25"
-    ["Implemented"]="50"
-    ["implemented"]="50"
-    ["Testing"]="75"
-    ["testing"]="75"
-    ["Finished"]="100"
-    ["finished"]="100"
-)
+# Status to percentage mapping (loaded from config)
+declare -A STATUS_MAP
+
+# Load status values from cig-project.json
+load_status_map() {
+    local config_file=""
+    local project_root=""
+    local loaded=false
+
+    # Find project root
+    if git rev-parse --show-toplevel &>/dev/null; then
+        project_root="$(git rev-parse --show-toplevel)"
+    else
+        project_root="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
+    fi
+
+    # Search for cig-project.json in common locations
+    for path in \
+        "$project_root/implementation-guide/cig-project.json" \
+        "$project_root/cig-project.json" \
+        "$project_root/.cig/cig-project.json"; do
+        if [[ -f "$path" ]]; then
+            config_file="$path"
+            break
+        fi
+    done
+
+    # Load from config if available and jq is installed
+    if [[ -n "$config_file" ]] && command -v jq &>/dev/null; then
+        while IFS='=' read -r key value; do
+            if [[ -n "$key" ]]; then
+                STATUS_MAP["$key"]="$value"
+                loaded=true
+            fi
+        done < <(jq -r '.workflow["status-values"] // {} | to_entries[] | "\(.key)=\(.value)"' "$config_file" 2>/dev/null || true)
+    fi
+
+    # Fallback to hardcoded defaults if config not loaded
+    if [[ "$loaded" == "false" ]]; then
+        STATUS_MAP=(
+            ["Backlog"]="0"
+            ["backlog"]="0"
+            ["To-Do"]="0"
+            ["to-do"]="0"
+            ["In Progress"]="25"
+            ["in progress"]="25"
+            ["Implemented"]="50"
+            ["implemented"]="50"
+            ["Testing"]="75"
+            ["testing"]="75"
+            ["Finished"]="100"
+            ["finished"]="100"
+        )
+    fi
+}
+
+# Load status mapping from configuration
+load_status_map
 
 # Parse arguments
 TASK_PATH="${1:-}"
@@ -90,7 +133,17 @@ calculate_progress() {
         statuses+=("$status")
 
         # Convert status to percentage
-        local pct="${STATUS_MAP[$status]:-0}"
+        local pct="${STATUS_MAP[$status]:-}"
+
+        # Warn if unknown status
+        if [[ -z "$pct" && "$status" != "Unknown" ]]; then
+            local filename=$(basename "$(dirname "$file")")/$(basename "$file")
+            echo "Warning: Unknown status \"$status\" in $filename (actual: \"$status\", mapped: \"UNKNOWN\", effective: 0%)" >&2
+            pct="0"
+        elif [[ -z "$pct" ]]; then
+            pct="0"
+        fi
+
         percentages+=("$pct")
     done
 

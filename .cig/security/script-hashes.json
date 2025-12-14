@@ -1,6 +1,6 @@
 {
   "version": "2.0",
-  "last_updated": "2025-12-13",
+  "last_updated": "2025-12-14",
   "scripts": {
     "hierarchy-resolver.sh": {
       "path": ".cig/scripts/command-helpers/hierarchy-resolver.sh",
@@ -16,7 +16,7 @@
     },
     "status-aggregator.sh": {
       "path": ".cig/scripts/command-helpers/status-aggregator.sh",
-      "sha256": "0ca00b5b1025bb835205f1c7838d42c41e568e88953d7bade9fbad1cf5e24fd2",
+      "sha256": "905af10f0d25712e298f7d69785cdf7f46ec4f29a87d2bb4b0ff30338694f9f5",
       "permissions": "0500",
       "description": "Calculate task progress from status markers"
     },
@@ -31,6 +31,24 @@
       "sha256": "320771f242c9e7580e4208d017e0b9d68af2c76403dbba615d0176effa37374e",
       "permissions": "0500",
       "description": "Extract parent task context with headers, line ranges, and status markers"
+    },
+    "migrate-v1-to-v2.sh": {
+      "path": ".cig/scripts/migrate-v1-to-v2.sh",
+      "sha256": "1b509c949e3d94a74230488c2e822dd3899706f9d7366d04f8990c2ec07bae56",
+      "permissions": "0500",
+      "description": "Migrate v1.0 tasks to v2.0 hierarchical structure with git-first backup"
+    },
+    "validate-migration.sh": {
+      "path": ".cig/scripts/validate-migration.sh",
+      "sha256": "90c2933399266a98dd3cf96db874d48deccaae3cb4f8b47412c1b29fb077b76a",
+      "permissions": "0500",
+      "description": "Validate migrated task integrity (Template Version, Migration field, structure)"
+    },
+    "rollback-migration.sh": {
+      "path": ".cig/scripts/rollback-migration.sh",
+      "sha256": "20b653c381c809bd1247aca1a75e218256f80b7262c69fbedd308695b9428730",
+      "permissions": "0500",
+      "description": "Rollback migration to v1.0 using git tag or manual backup"
     }
   }
 }

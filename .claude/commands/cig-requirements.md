@@ -1,7 +1,7 @@
 ---
 description: Guide user through requirements phase
 argument-hint: <task-path>
-allowed-tools: Read, Write, Edit, Bash(.cig/scripts/command-helpers/hierarchy-resolver.sh), Bash(.cig/scripts/command-helpers/context-inheritance.pl), Bash(.cig/scripts/command-helpers/format-detector.sh), Bash(egrep:*), Bash(echo:*), Bash(find:*)
+allowed-tools: Read, Write, Edit, Bash(.cig/scripts/command-helpers/hierarchy-resolver.sh:*), Bash(.cig/scripts/command-helpers/context-inheritance.pl:*), Bash(.cig/scripts/command-helpers/format-detector.sh:*), Bash(egrep:*), Bash(echo:*), Bash(find:*)
 ---
 
 ## Context
@@ -31,6 +31,8 @@ Follow the 8-step workflow structure:
    - How well must it do it? (Non-functional requirements: performance, usability, maintainability, security, reliability)
    - How do we verify success? (Acceptance criteria)
    - What are the hard constraints?
+
+   **Status Field**: Use valid status values only. See `.cig/docs/workflow/workflow-steps.md#status-values`.
 
 7. **Check Decomposition Signals**: Review 5 universal signals
 8. **Suggest Next Steps**:
