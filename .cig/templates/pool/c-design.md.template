@@ -5,6 +5,7 @@
 - **Task URL**: {{taskUrl}}
 - **Parent Task**: {{parentTask}}
 - **Branch**: {{branchName}}
+- **Template Version**: 2.0
 
 ## Goal
 Define architecture and design decisions for {{description}}.
@@ -34,7 +35,7 @@ Composition over inheritance. Interfaces over singletons. Explicit over implicit
 
 ### Data Flow
 1. User interaction → Component A
-2. Component A processes → Component B  
+2. Component A processes → Component B
 3. Component B updates → Data Store
 
 ## Interface Design
@@ -62,8 +63,8 @@ Model {
 - [ ] Architecture approved by team
 - [ ] Integration points verified
 
-## Current Status
-**Status**: Not Started
+## Status
+**Status**: Backlog
 **Next Action**: Begin implementation planning
 **Blockers**: None identified
 
